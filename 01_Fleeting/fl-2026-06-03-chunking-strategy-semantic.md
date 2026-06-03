@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-03
 modified: 2026-06-03
 status: draft
-tags: [rag, chunking, semantic, embedding, kamradt, 청킹]
+tags: [rag, chunking, semantic, embedding, kamradt]
 domain:
   - ai-ml-llm
 aliases: [Semantic Chunking, Embedding-based Chunking, Kamradt Semantic Splitter, ClusterSemanticChunker]

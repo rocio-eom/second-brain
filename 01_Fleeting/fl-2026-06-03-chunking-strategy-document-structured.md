@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-03
 modified: 2026-06-03
 status: draft
-tags: [rag, chunking, document-based, markdown, html, code, structured, 청킹]
+tags: [rag, chunking, document-based, markdown, html, code, structured]
 domain:
   - ai-ml-llm
 aliases: [Document-based Chunking, Structure-aware Chunking, Markdown Chunking, HTML Chunking, Code Chunking]

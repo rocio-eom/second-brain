@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-03
 modified: 2026-06-03
 status: draft
-tags: [rag, chunking, sliding-window, sentence-window, overlap, llamaindex, 청킹]
+tags: [rag, chunking, sliding-window, sentence-window, overlap, llamaindex]
 domain:
   - ai-ml-llm
 aliases: [Sliding Window Chunking, Sentence Window Retrieval, Overlap Chunking, Windowed Chunking]

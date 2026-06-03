@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-03
 modified: 2026-06-03
 status: draft
-tags: [rag, chunking, agentic, llm-based, proposition, 청킹]
+tags: [rag, chunking, agentic, llm-based, proposition]
 domain:
   - ai-ml-llm
 aliases: [Agentic Chunking, LLM-based Chunking, Proposition-based Chunking, Intelligent Chunking]

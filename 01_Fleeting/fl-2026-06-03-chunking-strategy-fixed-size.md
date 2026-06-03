@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-03
 modified: 2026-06-03
 status: draft
-tags: [rag, chunking, fixed-size, preprocessing, llm, 청킹]
+tags: [rag, chunking, fixed-size, preprocessing, llm]
 domain:
   - ai-ml-llm
 aliases: [Fixed-size Chunking, Fixed-length Chunking, Character Chunking, Token Chunking]
