@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Obsidian — 사용자별 설정/상태 전체 제외
+.obsidian/
+
+# Claude Code 개인 설정
+.claude/
+CLAUDE.md
+
+# 설계 합의 노트 — 세션 로컬, 커밋 대상 아님
+plans/
+
+# 편집기 임시 파일
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# 빈 daily note 정리 결과 (있다면)
+00_Inbox/daily/*.empty
