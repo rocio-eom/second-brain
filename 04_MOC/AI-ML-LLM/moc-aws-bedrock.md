@@ -24,6 +24,10 @@ AWS Bedrock 생태계의 매니지드 LLM/RAG 컴포넌트 인덱스.
 - [[bedrock-model-customization]] — SFT·RFT·Continued Pre-training·Distillation 4가지 매니지드 학습 방법. Provisioned Throughput 배포 필수, 과금 3축(학습+보관+PT)
 - [[aws-bedrock-seoul-region-model-support]] — ap-northeast-2 가용 모델·가격 카탈로그(2026-06 snapshot), in-region/Geo/Global CRIS 호출 경로, `kr.*` geo profile 부재 등 한국 잔류 요건 대응
 
+## 비용·성능 최적화
+
+- [[aws-bedrock-prompt-caching]] — prefix-based caching: `cache_control`/`cachePoint`로 명시적 경계 지정, TTL 5min/1h, cache write 1.25x~2.0x·read 0.1x, Claude·Nova 지원 범위 차이, multi-turn/긴 system prompt에서 비용 90%·latency 85% 절감
+
 ## RAG 컴포넌트
 
 - [[aws-s3-vectors-overview]] — Amazon S3 Vectors 플랫폼 개요: 저비용·매니지드 벡터 스토리지, cold/warm 티어링, 경쟁사 비교, 6개 파생 노트 입구
@@ -39,6 +43,7 @@ AWS Bedrock 생태계의 매니지드 LLM/RAG 컴포넌트 인덱스.
 - [[bedrock-kb-s3-vectors-integration]] — KB + S3 Vectors 통합 패턴: 자동 프로비저닝·ingestion job·IAM 롤·metadata 사이드카·비용 비교
 - [[aws-s3-vectors-cold-tier-rag]] — cold-tier only RAG 아카이브 패턴: idle 95%+ 코퍼스에 운영 인스턴스 0으로 시맨틱 검색 부여, 비용 ≈ Storage만
 - [[aws-s3-vectors-hot-cold-tiering]] — Hot OSS + Cold S3 Vectors 티어드 패턴: Export·Engine 2개 통합 모드, promotion/demotion 트리거, 70~90% 비용 절감
+- [[aws-s3-vectors-multi-turn-chat-strategy]] — Conversational RAG 위에 S3 Vectors 적용: session store + S3 Vectors(KB/장기 메모리) + query rewriter 3-layer 분리, Bedrock KB sessionId 24h vs Strands Memory Plugin vs 자체 구현 3가지 전략
 
 ## 안전·운영
 

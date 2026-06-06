@@ -1,15 +1,17 @@
 ---
-type: fleeting
+type: permanent
 created: 2026-06-06
 modified: 2026-06-06
 status: draft
+domain: ai-ml-llm
+moc: "[[moc-aws-bedrock]]"
 tags: [aws, bedrock, prompt-caching, llm-cost-optimization, claude, nova, latency-optimization]
-domain:
-  - ai-ml-llm
 aliases: [Bedrock Prompt Caching, AWS Bedrock cache, cache_control, cachePoint]
-literature_source: []
-related: []
-suggested_category: AI-ML-LLM/AWS-Bedrock
+promoted_from: fl-2026-06-06-aws-bedrock-prompt-caching
+related:
+  - "[[bedrock-converse-api]]"
+  - "[[bedrock-claude-generation-models]]"
+  - "[[aws-bedrock-overview]]"
 ---
 
 # AWS Bedrock Prompt Caching
@@ -141,3 +143,9 @@ Nova Pro로 긴 시스템 프롬프트 + 다회 turn chat 구축 시, system + �
 - [Amazon Bedrock Prompt Caching: Saving Time and Money — Caylent](https://caylent.com/blog/prompt-caching-saving-time-and-money-in-llm-applications) — 가격 모델(1.25x / 2.0x / 0.1x) 정리 및 실측 비용 분석.
 - [AWS Bedrock prompt caching has a hidden cost most people miss — DEV](https://dev.to/mukundakatta/aws-bedrock-prompt-caching-has-a-hidden-cost-most-people-miss-3g73) — write/break-even pitfall 사례.
 - [BedrockPromptCachingMiddleware — langchain_aws Reference](https://reference.langchain.com/python/langchain-aws/middleware/prompt_caching/BedrockPromptCachingMiddleware) — 프레임워크 통합 패턴 참고.
+
+## 관련 노트
+
+- [[bedrock-converse-api]] — `cachePoint` 필드는 Converse API의 핵심 통합 포인트
+- [[bedrock-claude-generation-models]] — Claude 4.5 계열 TTL 1h 지원 모델 카탈로그
+- [[aws-bedrock-overview]] — Bedrock 플랫폼 전반 컴포넌트 지도

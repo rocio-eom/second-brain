@@ -29,6 +29,7 @@ End-to-end RAG 파이프라인의 설계·운영·평가 관련 Permanent 노트
 - [[rag-ingestion-production-ops]] — RAG ingestion production 운영 3축: DLQ로 poison chunk 격리·span tracing으로 stage별 root cause·tag 기반 cost attribution + RAGOps span 표준
 - [[rag-pii-handling]] — PII 일관 정책: embedding inversion 방어·reversible tokenization + PII vault·3-layer detection·규제 팩(GDPR/HIPAA/PCI-DSS/DPDPA)
 - [[confluence-doc-type-classification-heuristic]] — Confluence 페이지를 FAQ/가이드/정책서로 분류하는 4단계 rule-based heuristic chain
+- [[dec-2026-06-06-confluence-wiki-sync]] — Confluence → MySQL 단방향 동기화 업스트림 ADR: 본 시스템이 RAG ingestion의 *원본 데이터 소스* 역할을 분담. 임베딩·Vector DB는 다운스트림(본 MOC) 책임으로 분리
 
 ## Framework & Orchestration
 
@@ -42,7 +43,9 @@ End-to-end RAG 파이프라인의 설계·운영·평가 관련 Permanent 노트
 - [[vector-store-decision-matrix]] — RAG용 벡터 저장소 선택 결정 매트릭스: latency SLA·idle비용·검색풍부도·RDB통합 4축 기반 S3V·OSS·pgvector·Pinecone 비교
 - [[hybrid-search-optimization]] — BM25 + Vector hybrid retrieval: RRF·α-weighted fusion·score normalization·reranker 결합으로 recall과 precision 동시 향상
 - [[rag-policy-filter]] — 권한 기반 ACL pre-filter: tenant·role·classification metadata로 cross-tenant leakage 차단 + RBAC/ABAC/ReBAC + 외부 PDP(Cerbos/OPA)
+- [[dec-2026-06-06-confluence-wiki-permission-store]] — RAG의 업스트림 권한 데이터 저장 정책 ADR. RAG는 본 ADR의 RDB `page_permission`을 ACL pre-filter SoT로 활용 (VectorDB metadata 부착 여부는 향후 RAG ADR에서 결정)
 - [[rag-multi-turn-session]] — Conversational RAG multi-turn: query rewriting(decontextualization) + memory 4계층 + semantic cache + context budget 분배
+- [[aws-s3-vectors-multi-turn-chat-strategy]] — S3 Vectors 위에서 multi-turn 챗을 구성하는 3-layer 전략(session store + S3 Vectors + query rewriter): native session 부재 대응·Bedrock KB sessionId/Strands Plugin/자체 구현 비교
 
 ## Generation / Post-processing
 

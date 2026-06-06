@@ -1,20 +1,21 @@
 ---
-type: fleeting
+type: permanent
 created: 2026-06-06
 modified: 2026-06-06
 status: draft
+domain: ai-ml-llm
+moc: "[[moc-aws-bedrock]]"
 tags: [aws, aws-s3-vectors, rag, conversational-rag, multi-turn, session-management, bedrock, ai-ml-llm]
-domain:
-  - ai-ml-llm
 aliases: [S3 Vectors Conversational RAG, S3 Vectors Chatbot Memory, S3 Vectors Multi-turn Architecture, Conversational AI on S3 Vectors]
-literature_source: []
+promoted_from: fl-2026-06-06-aws-s3-vectors-multi-turn-chat-strategy
 related:
-  - "[[fl-2026-06-04-rag-ingestion-multi-turn-session]]"
-  - "[[fl-2026-06-04-aws-s3-vectors-schema-design]]"
-  - "[[fl-2026-06-02-aws-s3-vectors-hot-cold-vector-tiering]]"
-  - "[[fl-2026-06-02-aws-s3-vectors-metadata-filterable-vs-non-filterable]]"
-  - "[[fl-2026-06-02-aws-s3-vectors-vector-bucket-and-index-resource-model]]"
-suggested_category: AI-ML-LLM/AWS-Bedrock
+  - "[[rag-multi-turn-session]]"
+  - "[[aws-s3-vectors-schema-design-strategy]]"
+  - "[[aws-s3-vectors-hot-cold-tiering]]"
+  - "[[aws-s3-vectors-metadata-schema]]"
+  - "[[aws-s3-vectors-resource-model]]"
+  - "[[aws-s3-vectors-cold-tier-rag]]"
+  - "[[bedrock-kb-s3-vectors-integration]]"
 ---
 
 # AWS S3 Vectors Multi-turn Chat Strategy
@@ -158,3 +159,13 @@ tenant당 격리 + 비용 attribution 요구. **per-tenant 인덱스**(권장: �
 - [Architecting GenAI at Scale: Lessons from Amazon S3 Vector Store — Caylent](https://caylent.com/blog/architecting-gen-ai-at-scale-lessons-from-aws-s-3-vector-store-and-the-nuances-of-hybrid-vector-storage) — hot OpenSearch + cold S3 Vectors hybrid 패턴
 - [Building cost-effective RAG applications with Amazon Bedrock Knowledge Bases and Amazon S3 Vectors — AWS ML Blog](https://aws.amazon.com/blogs/machine-learning/building-cost-effective-rag-applications-with-amazon-bedrock-knowledge-bases-and-amazon-s3-vectors/) — KB+S3 Vectors 비용 모델
 - [S3 Vectors best practices — AWS Docs](https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-vectors-best-practices.html) — 처리량/배치 가이드
+
+## 관련 노트
+
+- [[rag-multi-turn-session]] — multi-turn RAG의 일반 개념(query rewriting · memory 4계층 · context budget). 본 노트는 그 위에 S3 Vectors specific 전략을 적용한 형태
+- [[aws-s3-vectors-schema-design-strategy]] — filterable 2KB 한도 안에서 `session_id`·`tenant_id` 등 식별자를 어떻게 배치할지 결정하는 상위 노트
+- [[aws-s3-vectors-hot-cold-tiering]] — production default 패턴(hot OpenSearch + cold S3 Vectors)의 일반화된 분리 모델
+- [[aws-s3-vectors-metadata-schema]] — filterable vs non-filterable 분류 규칙. 본 전략의 메타 한도 압박 해소 근거
+- [[aws-s3-vectors-resource-model]] — per-tenant 인덱스 vs 공유 인덱스 결정의 리소스 모델 배경
+- [[aws-s3-vectors-cold-tier-rag]] — cold-tier 전용 RAG 아카이브 패턴. 본 노트의 시나리오 1과 인접
+- [[bedrock-kb-s3-vectors-integration]] — Bedrock KB + S3 Vectors 통합 구조. sessionId 24h 위임 모드의 기반
