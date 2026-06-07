@@ -3,7 +3,7 @@ type: fleeting
 created: 2026-06-06
 modified: 2026-06-06
 status: draft
-tags: [llm-prompting, claude, architecture-review, system-design, adr, technical-advisor]
+tags: [llm-prompting, claude, architecture-review, decisions, adr, technical-advisor]
 domain:
   - ai-ml-llm
 aliases: [Claude Architecture Review, Claude technical advisor, AI architecture review pattern]
