@@ -13,6 +13,7 @@ related_permanent: []
 related_project: []
 retrospective_date: 2026-10-08
 related:
+  - "[[dec-2026-09-10-vcs-layer-naming-and-release-tagging]]"
   - "[[dec-2026-07-31-git-repo-topology-naming-convention]]"
   - "[[dec-2026-09-10-data-catalog-ownership-and-staged-rollout]]"
   - "[[fl-2026-07-31-git-repo-naming-convention]]"
