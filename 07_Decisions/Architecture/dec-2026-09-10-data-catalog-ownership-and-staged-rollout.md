@@ -7,6 +7,11 @@ status: accepted
 tags: [data-catalog, metadata, ownership, lineage, governance, architecture, adr, platform]
 aliases: [Data Catalog Ownership ADR, 데이터 카탈로그 소유 결정, staged catalog rollout]
 retrospective_date: 2026-10-01
+context: "플랫폼 5개 저장소에서 데이터 카탈로그의 소유·메타데이터 모델·단계 게이트를 정한다"
+options_considered: [현 방식 연장 + 제품 전환 트리거, DataHub 즉시 도입, OpenMetadata 즉시 도입, platform-catalog 즉시 신설, platform-data-model 로 들이기, URN 즉시 도입]
+decision: "governance registry/repos 를 서비스 카탈로그의 정본으로 확정하고, URN 없이 service.id 를 키로 유지하며, 자산 카탈로그는 첫 데이터스토어 apply 를 게이트로 미룬다"
+related_permanent: []
+related_project: []
 related:
   - "[[fl-2026-09-10-data-catalog-overview]]"
   - "[[fl-2026-09-10-data-catalog-metadata-model]]"
@@ -147,8 +152,9 @@ Accepted (2026-09-10). 회고 예정: 2026-10-01 (약 3주 후, S1 적용 결과
 - [ ] **`PLATFORM_REPO_TOKEN` PAT 생성 (사람 작업, 약 5분).** 없으면 "문서는 정확한데 기계는 절반만 지킨다"는 상태로 굳는다. 그런 상태를 방치한 전례가 이미 있다
 - [ ] Tech-Selection 노트는 **쓰지 않는다 — 시기상조다.** 선택된 것이 "현 방식 연장 + 전환 트리거"이므로 제품 비교가 실행되지 않았다(PoC·비용 산정 전무). 지금 쓰면 껍데기가 되고, 나중에 진짜 선택할 때 "이미 결정했다"는 착각을 만든다. **S5 조건 2개가 관측되는 시점에 spawn**한다
 - [ ] 두 번째 entity type이 들어오면 `dec-YYYY-MM-DD-catalog-metadata-model` 을 Architecture로 분리한다. 메타데이터 모델은 "되돌리기 가장 비싼 결정"이므로 그때는 자기 노트를 가질 값어치가 있다
-- [ ] **Fleeting 4편의 Permanent 승격 — `overview` 1건 파일럿부터.** 선결 문제 셋이 있다: (a) `Backend/Architecture` · `Backend/Databases` 는 vault CLAUDE.md에 선언된 서브폴더가 아니다(`Backend/{Distributed-Systems, Data-Pipeline, AWS}` 뿐)이므로 폴더 표를 먼저 갱신해야 하고, (b) Permanent 필수 필드 `moc` 를 채울 수 없다(`04_MOC/` 가 디스크에 없다), (c) 4편 모두 한국어 태그를 달고 있다. **이것이 vault의 첫 승격이라 승격 기계 자체가 미검증**이므로 1건으로 검증한 뒤 나머지를 일괄 처리한다
-- [ ] **오픈 이슈 — 결정 노트 형식이 둘로 갈린다.** `.claude/skills/decisions/SKILL.md` 는 Phase 1–4 H1 넷과 고정 H2 열하나(`## 로드밸런서` · `## 레디스` · `## 사용자 데이터베이스` 포함)를 강제하는데, 실제 존재하는 결정 노트([[dec-2026-07-31-git-repo-topology-naming-convention]])는 그 골격을 따르지 않고 ADR 형식이다. 이 노트도 ADR 형식을 따랐다 — 소유·경계 판정에 "레디스" 절을 채우는 것은 길이를 채우려고 쓴 문장이 되기 때문이다. **다음 결정 노트를 쓰기 전에 정본 형식을 확정할 것.** 스킬에 "설계 인터뷰가 아닌 경계·소유 판정" 모드를 추가하는 쪽이 유력하다
+- [ ] **Fleeting 4편의 Permanent 승격.** 남은 문제는 둘뿐이다 — (a) `Backend/Databases` 폴더가 없다. `metadata-model` 편의 행선지를 `Backend/Architecture` 로 보낼지 폴더를 새로 만들지 정해야 한다, (b) 4편 모두 한국어 태그(`데이터카탈로그`·`메타데이터` 등)를 달고 있는데 vault CLAUDE.md는 한국어 태그를 금지한다 → 제거하고 `aliases` 로 옮긴다. 나머지 셋의 행선지는 이미 존재한다: `overview`·`governance-adoption` → `03_Permanent/Backend/Architecture/`, `ingestion-lineage` → `03_Permanent/Backend/Data-Pipeline/`. `moc:` 는 [[moc-backend-architecture]] 로 채운다
+- [ ] **vault CLAUDE.md의 폴더 표가 낡았다.** 33행이 `Backend/{Distributed-Systems, Data-Pipeline, AWS}` 만 적고 있으나 디스크에는 `APIs` · `Architecture` · `Performance` 도 있다. 승격 전에 표를 실제와 맞춘다
+- [ ] **오픈 이슈 — 결정 노트 형식이 셋으로 갈린다.** (1) `08_Templates/tpl-decision.md` — `## 배경 및 문제 정의` · `## 검토한 옵션` · `## 최종 결정` · `## 회고`, (2) `.claude/skills/decisions/SKILL.md` — Phase 1–4 H1 넷과 고정 H2 열하나(`## 로드밸런서` · `## 레디스` · `## 사용자 데이터베이스` 포함), (3) [[dec-2026-07-31-git-repo-topology-naming-convention]] — ADR 형식. 이 노트는 (3)을 따르되 frontmatter는 (1)의 키를 채웠다. 소유·경계 판정에 "레디스" 절을 채우는 것은 길이를 채우려고 쓴 문장이 되기 때문이다. **다음 결정 노트를 쓰기 전에 정본 형식을 확정할 것** — 템플릿과 스킬 골격이 서로 다른 것부터가 문제다. 스킬에 "설계 인터뷰가 아닌 경계·소유 판정" 모드를 추가하고 템플릿을 그 정본으로 삼는 쪽이 유력하다
 - [ ] 회고(2026-10-01): 등록부 항목이 몇 개로 늘었는지, G15/G16이 실제로 무언가를 잡았는지, PAT이 생겼는지 점검
 
 ## 관련 자료
