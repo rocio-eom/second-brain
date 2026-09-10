@@ -13,6 +13,7 @@ related_permanent: []
 related_project: []
 retrospective_date: 2026-10-08
 related:
+  - "[[dec-2026-09-10-harness-layer-naming]]"
   - "[[dec-2026-09-10-code-layer-naming-taxonomy-and-enforcement]]"
   - "[[dec-2026-07-31-git-repo-topology-naming-convention]]"
   - "[[fl-2026-07-31-git-repo-convention-branch-strategy]]"
