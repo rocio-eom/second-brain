@@ -2,13 +2,13 @@
 type: decision
 category: architecture
 created: 2026-09-10
-modified: 2026-09-10
+modified: 2026-09-14
 status: accepted
 tags: [naming-convention, harness, skill, subagent, slash-command, plugin, mcp, workflow, routing, linter, adr, platform]
 aliases: [하네스 층 네이밍, harness layer naming, 스킬 이름 규약, 서브에이전트 이름 규약, MCP 툴 이름 예산, 스코프 충돌]
 context: "앞의 세 층은 이름이 틀리면 무언가가 실패하지만 하네스 층은 아무것도 실패하지 않는다 — 다른 것이 발동하거나 아무것도 발동하지 않을 뿐이다. 그리고 이 층의 이름만 사람이 타이핑하는 문자열이자 모델의 라우팅 입력이다"
 options_considered: [현행 유지, conventions/naming.yaml 4절 추가, platform-orchestration 단독 소유, platform-governance 단독 소유, 맨명사 금지를 에러로 강제, 플러그인 스킬 전수 등재, 전역 즉시 강제]
-decision: "형태는 platform-data-model/conventions 가, 실재하는 이름의 목록은 platform-governance/registry/harness 가, 발동 정확도는 platform-orchestration/evals 가 소유하는 3분할"
+decision: "형태와 목록은 platform-governance/conventions 가, 발동 정확도는 platform-orchestration/evals 가 소유한다 (2026-09-14 개정 — 최초안의 3분할에서 data-model 을 뺐다)"
 related_permanent: []
 related_project: []
 retrospective_date: 2026-10-08
@@ -17,6 +17,7 @@ related:
   - "[[dec-2026-09-10-code-layer-naming-taxonomy-and-enforcement]]"
   - "[[dec-2026-09-10-data-catalog-ownership-and-staged-rollout]]"
   - "[[fl-2026-07-26-claude-parallel-skill-harness]]"
+  - "[[fl-2026-09-14-harness-asset-naming-convention]]"
 ---
 
 # ADR: 하네스 층 네이밍 — 타이핑 문자열이자 라우팅 입력
@@ -25,7 +26,7 @@ related:
 
 Accepted (2026-09-10). [[dec-2026-09-10-vcs-layer-naming-and-release-tagging]]의 **확장**이며 개정이 아니다 — 앞의 세 층이 *일의 결과* 의 이름을 가져왔다면 이것은 **그 일을 하는 도구 자신** 의 이름을 가져온다. 회고 예정: 2026-10-08.
 
-플랫폼 저장소 쪽 대응 ADR: `platform-data-model` ADR 0014.
+**2026-09-14 개정 — D2 를 실측으로 정정했다 (아래 §개정 참조). 플랫폼 저장소 쪽 대응은 `platform-data-model` ADR 0014 가 아니라 `platform-governance` `conventions/harness.md` 다.**
 
 ## 배경 (Context)
 
@@ -100,3 +101,62 @@ MCP 노출명 `mcp__{server}__{tool}` 이 그대로 API 의 `tool.name` 이 되�
 2. **eval 기준선.** `evals/harness-routing/` 에 케이스만 있고 첫 실행이 없다. 그 전까지 「라우팅이 옳다」는 측정되지 않은 주장이다.
 3. **`platform-request` 개명.** 2026-10-01 유예 만료. `request` 로 줄이면 상한 안에 들고 저장소 이름과의 중복도 사라진다.
 4. **재검토 트리거 6개** — ADR 0014 에 수치로 적혀 있다. 미등재 3건 누적 · `/doctor` 동명 신고 · MCP 예산 여유 20자 미만 · eval 정확도 하락 · 유예 연장 · 자산 종류 7종 초과.
+
+---
+
+## 개정 (2026-09-14) — D2 의 전제가 사실이 아니었다
+
+**D2 의 결정적 기각 사유가 실재하지 않는 파일이었다.** 이 ADR 은 형태 정본을
+`platform-data-model/conventions/naming.yaml` 4절에 두면서 *"`skillNameLength` 가 이미
+`platform-data-model` 에 있었다 — orchestration 을 골랐다면 하네스 규칙이 첫날부터 두 곳으로
+갈렸다"* 를 셋 중 결정적인 사유로 들었다.
+
+2026-09-14 실측: **그 파일이 없다.** 워크스페이스 여섯 저장소 어디에도 `naming.yaml` 도,
+`lint-naming.mjs` 도, 대응 ADR 0014 도, `platform-governance/registry/` 도,
+`platform-orchestration/evals/` 도 존재하지 않는다. `platform-data-model/conventions/` 에는
+형상관리 층 vendoring 사본 네 개뿐이다. 실제로 기계가 된 규약은 **형상관리 하나**이고,
+그것은 `platform-governance/conventions/` 에 있다.
+
+이 부재가 조용하지 않았다. `~/.claude/skills/defs/reference/field-spec.md` 가 이름 형태와
+스코프 충돌 판정을 이 ADR 이 지목한 부재 자산에 **위임해 두고 있었다** — 정의 파일 SSOT 가
+*"여기가 아니다"* 라고 선언한 뒤 존재하지 않는 곳을 가리키는 상태다. 읽는 쪽은 검사를
+건너뛰는데 갈 곳이 없으므로 **미검사가 통과로 보인다.** [[dec-2026-07-31-git-repo-topology-naming-convention]]
+회고의 판정이 여기서도 그대로다 — *"규칙은 적혔고 검사는 없었다."*
+
+### D2′ — 형태와 목록을 합쳐 `platform-governance` 가 소유한다
+
+전제가 사라졌으므로 결정을 물려받지 않고 다시 판정한다.
+
+- **형태 → `platform-governance/conventions/harness.{md,json}` + `harness-lint.mjs`.**
+  data-model 에 4층 통합 린터를 새로 세우려면 `vcs-lint.mjs` 를 governance 에서 옮기거나
+  (여섯 저장소 CI 동시 파손) 엔진을 두 저장소로 쪼개야 한다. 둘 다 *정본은 하나* 원칙 위반이다.
+- **목록 → 두지 않는다.** D1 은 *"스코프 충돌 검사는 실재하는 이름의 목록 없이 성립하지 않는다"*
+  고 했고 그 관찰은 맞지만, **파일시스템이 이미 그 목록이다.** 등록부를 따로 두면 정본이 둘이
+  되고 갱신 누락이 새 실패 양식이 된다. 신설 트리거는 **크로스리포 충돌 3건 누적**으로 미룬다.
+- **발동 정확도 → `platform-orchestration/evals/` 유지.** 이 부분의 D1 은 그대로다.
+
+### D6′ — `--harness` opt-in 을 `.claude/` 존재로 대체한다
+
+D7 의 저장소별 opt-in 은 유지하되 플래그가 아니라 **디렉터리의 존재**가 마커다.
+`.claude/` 가 없으면 notice 후 스킵, 있는데 자산이 0건이면 **실패**다. 플래그는 끄면
+조용하지만 디렉터리는 있으면서 비어 있을 수 없다.
+
+### 유지되는 것
+
+D3(자산 종류가 채번 출처를 정한다) · D4(형태 전략 셋) · D5(MCP 예산을 합으로 센다) ·
+D6(가릴 수 있는 것만 에러다)는 그대로 규약에 옮겨졌다. **가장 큰 제약 — 호환 별칭이 없다 —
+도 그대로이며, 그래서 규약은 `enforcedSince` 류의 시간 경계를 두지 않는다.** 시간 유예는
+개명에 아무 도움도 되지 않기 때문이고, 경계는 시각이 아니라 범위(강제/관측전용)로 그었다.
+
+### 후속 갱신
+
+- **후속 2 (eval 기준선) 닫힘.** `platform-orchestration/.claude/eval-cases.json` 에 8건이
+  들어갔고 첫 실행이 돌았다 (긍정 100% · 부정 100%). 다만 이 eval 은 LLM 을 부르지 않는
+  대리 지표이며 **접두/접미 결정을 반증할 수 없다** — 그 한계를 규약이 명시한다.
+- **후속 1 (본문 예산 5건) 유지.** 이 저장소의 스킬 5건은 `.gitignore` 대상이라 형상관리
+  밖이고, 규약상 `observedOnly` 다. 시점은 이 저장소가 고른다.
+- **후속 4 (재검토 트리거 6개) 이관.** ADR 0014 가 없으므로 트리거는
+  `platform-governance/conventions/harness.md` 와 `platform-orchestration/ROLLOUT.md` 가 갖는다.
+
+배경 조사: [[fl-2026-09-14-harness-asset-naming-convention]] — 도입 중 규약 자신이 잡은 결함
+셋과 E2E 음성 통제의 최초 실패를 안티패턴 10~14 로 남겼다.
